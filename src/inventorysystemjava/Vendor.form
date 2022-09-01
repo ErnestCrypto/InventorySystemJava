@@ -200,6 +200,9 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="ADD GOODS"/>
               </Properties>
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jLabel6MouseClicked"/>
+              </Events>
             </Component>
             <Container class="javax.swing.JPanel" name="jPanel3">
               <Properties>

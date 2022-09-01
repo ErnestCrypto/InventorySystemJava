@@ -66,6 +66,11 @@ public class Vendor extends javax.swing.JFrame {
 
         jLabel6.setFont(new java.awt.Font("Georgia", 1, 14)); // NOI18N
         jLabel6.setText("ADD GOODS");
+        jLabel6.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel6MouseClicked(evt);
+            }
+        });
 
         jPanel3.setBackground(new java.awt.Color(46, 46, 86));
         jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -262,6 +267,12 @@ public class Vendor extends javax.swing.JFrame {
     private void prodNameTF2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_prodNameTF2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_prodNameTF2ActionPerformed
+
+    private void jLabel6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel6MouseClicked
+        // TODO add your handling code here:
+        new Category().setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_jLabel6MouseClicked
 
     /**
      * @param args the command line arguments

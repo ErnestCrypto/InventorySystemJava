@@ -42,8 +42,8 @@ public class AddProduct extends javax.swing.JFrame {
     }
     public void hashMap (){
         HashMap<Integer,String> vendor = new HashMap<>();
-        vendor.put(1, "First Vendor");
-        vendor.put(2, "Second Vendor");
+        vendor.put(1, "Nestle");
+        vendor.put(2, "Atona Foods");
     
     }
     

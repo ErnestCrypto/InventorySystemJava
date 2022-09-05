@@ -10,6 +10,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.util.Stack;
 import java.sql.*;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -20,6 +21,7 @@ public class AddProduct extends javax.swing.JFrame {
     //Creating the Stack, Queue and the List
     public static Stack<String> stackProduct = new Stack<>();
     public static Queue<String> queueProduct = new LinkedList<>();
+    public static List<String> listProduct = new LinkedList<>();
 
     /**
      * Creates new form AddProduct
@@ -337,6 +339,11 @@ public class AddProduct extends javax.swing.JFrame {
         {
             queueProduct.add(itemName);
         }
+        //Algorithm for adding to list
+        else 
+        {
+            listProduct.add(itemName);
+        }
         
         
     }//GEN-LAST:event_btnAddActionPerformed
@@ -345,11 +352,21 @@ public class AddProduct extends javax.swing.JFrame {
         // TODO add your handling code here:
         delProduct();
          String categorySelected = CatNameTF.getSelectedItem().toString();
-                 
-
+          String itemName1 = txtProName1.getText();
+            //Algorithm for popping from Stack
         if ("Beverages".equals(categorySelected) || "Bread/Bakery".equals(categorySelected) || " Canned/Jarred Goods".equals(categorySelected) || "Dairy".equals(categorySelected))
         {
             stackProduct.pop();
+        }
+        //Algorithm for removing from queue
+        else if("Dry/Baking Goods".equals(categorySelected)|| "Frozen Foods".equals(categorySelected) || "Meat".equals(categorySelected))
+        {
+            queueProduct.remove(itemName1);
+        }
+        //Algorithm for removing from list
+        else 
+        {
+            listProduct.remove(itemName1);
         }
         
     }//GEN-LAST:event_btnDelActionPerformed

@@ -80,7 +80,7 @@ public class AddProduct extends javax.swing.JFrame {
     
     
 
-    
+    // Inititates a new connection to the database
     Connection con;
     PreparedStatement insert;
     PreparedStatement delete;
@@ -307,7 +307,7 @@ public class AddProduct extends javax.swing.JFrame {
         String categorySelected = CatNameTF.getSelectedItem().toString();
         String itemName = txtProName.getText();
         String itemPrice = txtProPrice.getText();
-        String itemQuant = txtProQuant.getText();   
+        String itemQuant = txtProQuant.getText();  
         
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
@@ -333,18 +333,26 @@ public class AddProduct extends javax.swing.JFrame {
         if ("Beverages".equals(categorySelected) || "Bread/Bakery".equals(categorySelected) || " Canned/Jarred Goods".equals(categorySelected) || "Dairy".equals(categorySelected))
         {
             stackProduct.push(itemName);
+            JOptionPane.showMessageDialog(this, "Item pushed to stack!");
         }
         //Algorithm for adding to queue
         else if("Dry/Baking Goods".equals(categorySelected)|| "Frozen Foods".equals(categorySelected) || "Meat".equals(categorySelected))
         {
             queueProduct.add(itemName);
+            JOptionPane.showMessageDialog(this, "Item Added to Queue!");
         }
         //Algorithm for adding to list
         else 
         {
             listProduct.add(itemName);
+            JOptionPane.showMessageDialog(this, "Item added to list!");
+
         }
-        
+        //To clear the text fields after the data has been received...
+         txtProName.setText("");  
+        txtProPrice.setText("");
+        txtProQuant.setText(""); 
+        CatNameTF.setSelectedItem("");
         
     }//GEN-LAST:event_btnAddActionPerformed
 
@@ -357,16 +365,20 @@ public class AddProduct extends javax.swing.JFrame {
         if ("Beverages".equals(categorySelected) || "Bread/Bakery".equals(categorySelected) || " Canned/Jarred Goods".equals(categorySelected) || "Dairy".equals(categorySelected))
         {
             stackProduct.pop();
+            JOptionPane.showMessageDialog(this, "Item popped from Stack");
         }
         //Algorithm for removing from queue
         else if("Dry/Baking Goods".equals(categorySelected)|| "Frozen Foods".equals(categorySelected) || "Meat".equals(categorySelected))
         {
             queueProduct.remove(itemName1);
+            JOptionPane.showMessageDialog(this, "Item removed from queue!");
         }
         //Algorithm for removing from list
         else 
         {
             listProduct.remove(itemName1);
+            JOptionPane.showMessageDialog(this, "Item removed from list!");
+
         }
         
     }//GEN-LAST:event_btnDelActionPerformed

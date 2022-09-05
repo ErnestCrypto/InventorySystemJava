@@ -34,7 +34,7 @@ public class AddProduct extends javax.swing.JFrame {
         displayTable();
     }
     //To show the information from the database to the table
-    public void displayTable(){
+    private void displayTable(){
         try{
             Class.forName("com.mysql.cj.jdbc.Driver");
             con = DriverManager.getConnection("jdbc:mysql://localhost:3306/javaproject?zeroDateTimeBehavior=CONVERT_TO_NULL","root","drowssap");

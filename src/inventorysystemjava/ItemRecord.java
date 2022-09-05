@@ -8,7 +8,6 @@ public  class ItemRecord {
     
     public ItemRecord(String itemName,String itemCategory){
         this.itemName = itemName;
-        
         this.itemCategory = itemCategory;
         
        

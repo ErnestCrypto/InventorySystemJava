@@ -1,4 +1,5 @@
 
+//Titled addProduct but can also delete product from the database...
 package inventorysystemjava;
 
 import net.proteanit.sql.DbUtils;
@@ -16,7 +17,9 @@ import javax.swing.JOptionPane;
 
 public class AddProduct extends javax.swing.JFrame {
     
-    public static Stack<ItemRecord> product = new Stack<>();
+    //Creating the Stack, Queue and the List
+    public static Stack<String> stackProduct = new Stack<>();
+    public static Queue<String> queueProduct = new LinkedList<>();
 
     /**
      * Creates new form AddProduct
@@ -40,10 +43,36 @@ public class AddProduct extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(null, e);
     }
     }
+    
+    //deleting the item from the database
+    private void delProduct(){
+                String itemName1 = txtProName1.getText();
+                try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/javaproject?zeroDateTimeBehavior=CONVERT_TO_NULL","root","drowssap");
+            delete = con.prepareStatement("DELETE FROM products WHERE productName = ?");
+            delete.setString(1,itemName1);
+            delete.executeUpdate();
+             
+            JOptionPane.showMessageDialog(this, "Item Deleted");
+            
+            displayTable();
+
+            
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(AddProduct.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this, ex);
+        }
+
+    
+    }
+    //Stores Vendors in HashMaps
     public void hashMap (){
         HashMap<Integer,String> vendor = new HashMap<>();
         vendor.put(1, "Nestle");
         vendor.put(2, "Atona Foods");
+        vendor.put(3, "Promedor Foods");
+        vendor.put(4, "Ideal Factory");
     
     }
     
@@ -52,6 +81,7 @@ public class AddProduct extends javax.swing.JFrame {
     
     Connection con;
     PreparedStatement insert;
+    PreparedStatement delete;
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -74,6 +104,9 @@ public class AddProduct extends javax.swing.JFrame {
         CatNameTF = new javax.swing.JComboBox<>();
         jLabel5 = new javax.swing.JLabel();
         btnAdd = new javax.swing.JButton();
+        jPanel3 = new javax.swing.JPanel();
+        txtProName1 = new javax.swing.JTextField();
+        btnDel = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         proTab = new javax.swing.JTable();
 
@@ -121,22 +154,55 @@ public class AddProduct extends javax.swing.JFrame {
             }
         });
 
+        jPanel3.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+
+        txtProName1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+
+        btnDel.setText("Delete");
+        btnDel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDelActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(17, 17, 17)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnDel)
+                    .addComponent(txtProName1, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(82, Short.MAX_VALUE))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(txtProName1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnDel)
+                .addContainerGap(12, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(100, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(btnAdd)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel4)
                         .addGap(18, 18, 18)
                         .addComponent(CatNameTF, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addGap(36, 36, 36)
                         .addComponent(txtProName, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3)
                             .addComponent(jLabel2))
@@ -146,14 +212,13 @@ public class AddProduct extends javax.swing.JFrame {
                             .addComponent(txtProQuant))))
                 .addGap(41, 41, 41))
             .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel5))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(47, 47, 47)
-                        .addComponent(btnAdd)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jLabel5)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -176,9 +241,11 @@ public class AddProduct extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(CatNameTF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(28, 28, 28)
                 .addComponent(btnAdd)
-                .addGap(41, 41, 41))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         proTab.setModel(new javax.swing.table.DefaultTableModel(
@@ -238,11 +305,7 @@ public class AddProduct extends javax.swing.JFrame {
         String categorySelected = CatNameTF.getSelectedItem().toString();
         String itemName = txtProName.getText();
         String itemPrice = txtProPrice.getText();
-        String itemQuant = txtProQuant.getText();
-        
-        
-       
-        
+        String itemQuant = txtProQuant.getText();   
         
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
@@ -263,7 +326,33 @@ public class AddProduct extends javax.swing.JFrame {
             Logger.getLogger(AddProduct.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(this, ex);
         }
+        
+       //Algorithm for pushing to stack
+        if ("Beverages".equals(categorySelected) || "Bread/Bakery".equals(categorySelected) || " Canned/Jarred Goods".equals(categorySelected) || "Dairy".equals(categorySelected))
+        {
+            stackProduct.push(itemName);
+        }
+        //Algorithm for adding to queue
+        else if("Dry/Baking Goods".equals(categorySelected)|| "Frozen Foods".equals(categorySelected) || "Meat".equals(categorySelected))
+        {
+            queueProduct.add(itemName);
+        }
+        
+        
     }//GEN-LAST:event_btnAddActionPerformed
+
+    private void btnDelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelActionPerformed
+        // TODO add your handling code here:
+        delProduct();
+         String categorySelected = CatNameTF.getSelectedItem().toString();
+                 
+
+        if ("Beverages".equals(categorySelected) || "Bread/Bakery".equals(categorySelected) || " Canned/Jarred Goods".equals(categorySelected) || "Dairy".equals(categorySelected))
+        {
+            stackProduct.pop();
+        }
+        
+    }//GEN-LAST:event_btnDelActionPerformed
 
     /**
      * @param args the command line arguments
@@ -304,6 +393,7 @@ public class AddProduct extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JComboBox<String> CatNameTF;
     private javax.swing.JButton btnAdd;
+    private javax.swing.JButton btnDel;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -311,9 +401,11 @@ public class AddProduct extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable proTab;
     private javax.swing.JTextField txtProName;
+    private javax.swing.JTextField txtProName1;
     private javax.swing.JTextField txtProPrice;
     private javax.swing.JTextField txtProQuant;
     // End of variables declaration//GEN-END:variables

@@ -298,10 +298,10 @@ public class Category extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void buttonAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAddActionPerformed
+    private void buttonAddActionPerformed(java.awt.event.ActionEvent evt) {                                          
         // TODO add your handling code here:
-<<<<<<< HEAD
-    }//GEN-LAST:event_CatNameTFActionPerformed
+
+    }                                         
 
     private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
         // TODO add your handling code here:
@@ -354,7 +354,7 @@ public class Category extends javax.swing.JFrame {
             }
             product.pop();  */
         
-    }//GEN-LAST:event_buttonAddActionPerformed
+    }                                         
     
     
     

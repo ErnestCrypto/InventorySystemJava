@@ -1,6 +1,7 @@
 
 package inventorysystemjava;
 
+import net.proteanit.sql.DbUtils;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.HashMap;
@@ -22,8 +23,23 @@ public class AddProduct extends javax.swing.JFrame {
      */
     public AddProduct() {
         initComponents();
+        displayTable();
     }
-    
+    //To show the information from the database to the table
+    private void displayTable(){
+        try{
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/javaproject?zeroDateTimeBehavior=CONVERT_TO_NULL","root","drowssap");
+            String sql = "SELECT * FROM products ";
+            PreparedStatement display = con.prepareStatement(sql);
+            ResultSet rs = display.executeQuery();
+            proTab.setModel(DbUtils.resultSetToTableModel(rs));
+
+        }
+    catch(Exception e){
+        JOptionPane.showMessageDialog(null, e);
+    }
+    }
     public void hashMap (){
         HashMap<Integer,String> vendor = new HashMap<>();
         vendor.put(1, "First Vendor");
@@ -59,7 +75,7 @@ public class AddProduct extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         btnAdd = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        proTab = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -165,7 +181,7 @@ public class AddProduct extends javax.swing.JFrame {
                 .addGap(41, 41, 41))
         );
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        proTab.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -181,8 +197,8 @@ public class AddProduct extends javax.swing.JFrame {
                 return types [columnIndex];
             }
         });
-        jTable1.getTableHeader().setReorderingAllowed(false);
-        jScrollPane1.setViewportView(jTable1);
+        proTab.getTableHeader().setReorderingAllowed(false);
+        jScrollPane1.setViewportView(proTab);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -239,6 +255,8 @@ public class AddProduct extends javax.swing.JFrame {
             insert.executeUpdate();
              
             JOptionPane.showMessageDialog(this, "Item Added");
+            
+            displayTable();
 
             
         } catch (ClassNotFoundException | SQLException ex) {
@@ -294,7 +312,7 @@ public class AddProduct extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable proTab;
     private javax.swing.JTextField txtProName;
     private javax.swing.JTextField txtProPrice;
     private javax.swing.JTextField txtProQuant;

@@ -3,6 +3,7 @@ package inventorysystemjava;
 
 import java.util.LinkedList;
 import java.util.Queue;
+import java.util.HashMap;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.util.Stack;
@@ -22,6 +23,16 @@ public class AddProduct extends javax.swing.JFrame {
     public AddProduct() {
         initComponents();
     }
+    
+    public void hashMap (){
+        HashMap<Integer,String> vendor = new HashMap<>();
+        vendor.put(1, "First Vendor");
+        vendor.put(2, "Second Vendor");
+    
+    }
+    
+    
+
     
     Connection con;
     PreparedStatement insert;
@@ -220,11 +231,11 @@ public class AddProduct extends javax.swing.JFrame {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             con = DriverManager.getConnection("jdbc:mysql://localhost:3306/javaproject?zeroDateTimeBehavior=CONVERT_TO_NULL","root","drowssap");
-            insert = con.prepareStatement("INSERT INTO products(productName,productPrice,productQuantity)values(?,?,?,?)");
-            insert.setString(2,itemName);
-            insert.setString(3,itemPrice);
-            insert.setString(4,itemQuant);
-            insert.setString(5,categorySelected);
+            insert = con.prepareStatement("INSERT INTO products(productName,productPrice,productQuantity,productCategory)values(?,?,?,?)");
+            insert.setString(1,itemName);
+            insert.setString(2,itemPrice);
+            insert.setString(3,itemQuant);
+            insert.setString(4,categorySelected);
             insert.executeUpdate();
              
             JOptionPane.showMessageDialog(this, "Item Added");

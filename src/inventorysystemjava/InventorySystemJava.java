@@ -14,7 +14,8 @@ public class InventorySystemJava {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        new splash().setVisible(true);
+       splash sp = new splash();
+       sp.setVisible(true);
     }
     
 }

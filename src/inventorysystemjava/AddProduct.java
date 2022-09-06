@@ -222,6 +222,11 @@ public class AddProduct extends javax.swing.JFrame {
         jLabel10.setBackground(new java.awt.Color(59, 59, 79));
         jLabel10.setFont(new java.awt.Font("Georgia", 1, 14)); // NOI18N
         jLabel10.setText("VIEW VENDOR");
+        jLabel10.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel10MouseClicked(evt);
+            }
+        });
 
         jPanel4.setBackground(new java.awt.Color(46, 46, 86));
         jPanel4.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -376,6 +381,12 @@ public class AddProduct extends javax.swing.JFrame {
         new Orders().setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_jLabel9MouseClicked
+
+    private void jLabel10MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel10MouseClicked
+        // TODO add your handling code here:
+        new Vendor().setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_jLabel10MouseClicked
 
     /**
      * @param args the command line arguments

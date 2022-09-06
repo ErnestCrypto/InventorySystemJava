@@ -4,11 +4,21 @@
  */
 package inventorysystemjava;
 
+
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.Stack;
+import java.sql.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author Admin
  */
 public class Category extends javax.swing.JFrame {
+    
+    
 
     /**
      * Creates new form Category
@@ -35,16 +45,18 @@ public class Category extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
+<<<<<<< HEAD
         jPanel4 = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
         CatNameTF = new javax.swing.JComboBox<>();
         prodNameTF = new javax.swing.JTextField();
+=======
+        jLabel6 = new javax.swing.JLabel();
+>>>>>>> 566789222ef88ffcf96d136d4cb1e474d0f88277
         jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        buttonAdd = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
 
         jPanel3.setBackground(new java.awt.Color(46, 46, 86));
         jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -179,22 +191,20 @@ public class Category extends javax.swing.JFrame {
                 .addContainerGap(14, Short.MAX_VALUE))
         );
 
-        CatNameTF.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Beverages", "Bread/Bakery", "Canned/Jarred Goods ", "Dairy ", "Dry/Baking Goods", "Frozen Foods", "Meat", "Produce ", "Cleaners ", "Paper Goods ", "Personal Care" }));
-        CatNameTF.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                CatNameTFActionPerformed(evt);
-            }
-        });
-
         jButton1.setBackground(new java.awt.Color(255, 29, 85));
         jButton1.setFont(new java.awt.Font("Georgia", 1, 11)); // NOI18N
         jButton1.setText("REMOVE");
         jButton1.setBorder(null);
 
-        jButton2.setBackground(new java.awt.Color(255, 29, 85));
-        jButton2.setFont(new java.awt.Font("Georgia", 1, 11)); // NOI18N
-        jButton2.setText("ADD");
-        jButton2.setBorder(null);
+        buttonAdd.setBackground(new java.awt.Color(255, 29, 85));
+        buttonAdd.setFont(new java.awt.Font("Georgia", 1, 11)); // NOI18N
+        buttonAdd.setText("ADD");
+        buttonAdd.setBorder(null);
+        buttonAdd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonAddActionPerformed(evt);
+            }
+        });
 
         jTable1.setBackground(new java.awt.Color(255, 255, 255));
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
@@ -208,9 +218,16 @@ public class Category extends javax.swing.JFrame {
                 "CATEGORY", "PRODUCT NAME"
             }
         ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class
+            };
             boolean[] canEdit = new boolean [] {
                 false, false
             };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
@@ -218,14 +235,6 @@ public class Category extends javax.swing.JFrame {
         });
         jTable1.setGridColor(new java.awt.Color(0, 0, 0));
         jScrollPane1.setViewportView(jTable1);
-
-        jLabel7.setFont(new java.awt.Font("Georgia", 1, 12)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(255, 29, 85));
-        jLabel7.setText("CATEGORY");
-
-        jLabel8.setFont(new java.awt.Font("Georgia", 1, 12)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(255, 29, 85));
-        jLabel8.setText("PRODUCT ");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -238,6 +247,7 @@ public class Category extends javax.swing.JFrame {
                         .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(25, 25, 25)
+<<<<<<< HEAD
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(CatNameTF, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -248,6 +258,11 @@ public class Category extends javax.swing.JFrame {
                                 .addComponent(prodNameTF))
                             .addComponent(jLabel7)
                             .addComponent(jLabel8))
+=======
+                        .addComponent(buttonAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+>>>>>>> 566789222ef88ffcf96d136d4cb1e474d0f88277
                         .addGap(18, 18, 18)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 582, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
@@ -256,20 +271,12 @@ public class Category extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(27, 27, 27)
-                        .addComponent(jLabel7)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(CatNameTF, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel8)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(prodNameTF, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGap(47, 47, 47)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(buttonAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 348, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -288,11 +295,13 @@ public class Category extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void CatNameTFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CatNameTFActionPerformed
+    private void buttonAddActionPerformed(java.awt.event.ActionEvent evt) {                                          
         // TODO add your handling code here:
-    }//GEN-LAST:event_CatNameTFActionPerformed
+
+    }                                         
 
     private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
         // TODO add your handling code here:
@@ -330,6 +339,26 @@ public class Category extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_jLabel5MouseClicked
 
+=======
+        
+        
+      
+        
+       
+        
+       
+         /*
+            if()
+            {
+            
+            }
+            product.pop();  */
+        
+    }                                         
+    
+    
+    
+>>>>>>> 566789222ef88ffcf96d136d4cb1e474d0f88277
     /**
      * @param args the command line arguments
      */
@@ -366,24 +395,26 @@ public class Category extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<String> CatNameTF;
+    public javax.swing.JButton buttonAdd;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+<<<<<<< HEAD
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+=======
+    private javax.swing.JLabel jLabel6;
+>>>>>>> 566789222ef88ffcf96d136d4cb1e474d0f88277
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTextField prodNameTF;
     // End of variables declaration//GEN-END:variables
 }

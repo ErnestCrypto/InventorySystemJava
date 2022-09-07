@@ -28,6 +28,7 @@ public class AddProduct extends javax.swing.JFrame {
 
     /**
      * Creates new form AddProduct
+     * Also displays the data from the database to the Jtable
      */
     public AddProduct() {
         initComponents();
@@ -72,15 +73,7 @@ public class AddProduct extends javax.swing.JFrame {
 
     
     }
-    //Stores Vendors in HashMaps
-    public void hashMap (){
-        HashMap<Integer,String> vendor = new HashMap<>();
-        vendor.put(1, "Nestle");
-        vendor.put(2, "Atona Foods");
-        vendor.put(3, "Promedor Foods");
-        vendor.put(4, "Ideal Factory");
     
-    }
     
     
 
@@ -99,6 +92,8 @@ public class AddProduct extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         txtProQuant = new javax.swing.JTextField();
         txtProName = new javax.swing.JTextField();
@@ -108,7 +103,6 @@ public class AddProduct extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         CatNameTF = new javax.swing.JComboBox<>();
-        jLabel5 = new javax.swing.JLabel();
         btnAdd = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         txtProName1 = new javax.swing.JTextField();
@@ -122,15 +116,44 @@ public class AddProduct extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(255, 29, 85));
 
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel5.setText("ADD VENDOR");
+        jLabel5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel5MouseClicked(evt);
+            }
+        });
+
+        jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel6.setText("ADD PRODUCT");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(211, 211, 211)
+                .addComponent(jLabel5)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGap(16, 16, 16)
+                    .addComponent(jLabel6)
+                    .addContainerGap(614, Short.MAX_VALUE)))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 81, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(33, Short.MAX_VALUE)
+                .addComponent(jLabel5)
+                .addGap(16, 16, 16))
+            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                    .addContainerGap(33, Short.MAX_VALUE)
+                    .addComponent(jLabel6)
+                    .addGap(16, 16, 16)))
         );
 
         jPanel2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -151,9 +174,6 @@ public class AddProduct extends javax.swing.JFrame {
                 CatNameTFActionPerformed(evt);
             }
         });
-
-        jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jLabel5.setText("ADD PRODUCT");
 
         btnAdd.setText("Add");
         btnAdd.addActionListener(new java.awt.event.ActionListener() {
@@ -221,19 +241,13 @@ public class AddProduct extends javax.swing.JFrame {
                 .addGap(41, 41, 41))
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel5)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel5)
-                .addGap(43, 43, 43)
+                .addGap(81, 81, 81)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtProName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
@@ -360,7 +374,7 @@ public class AddProduct extends javax.swing.JFrame {
         }
         
        //Algorithm for pushing to stack
-        if ("Beverages".equals(categorySelected) || "Bread/Bakery".equals(categorySelected) || " Canned/Jarred Goods".equals(categorySelected) || "Dairy".equals(categorySelected))
+        if ("Beverages".equals(categorySelected) || "Bread/Bakery".equals(categorySelected) || "Canned/Jarred Goods ".equals(categorySelected) || "Dairy ".equals(categorySelected))
         {
             stackProduct.push(itemName);
             JOptionPane.showMessageDialog(this, "Item pushed to stack!");
@@ -372,7 +386,7 @@ public class AddProduct extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Item Added to Queue!");
         }
         //Algorithm for adding to list
-        else 
+        else
         {
             listProduct.add(itemName);
             JOptionPane.showMessageDialog(this, "Item added to list!");
@@ -392,7 +406,7 @@ public class AddProduct extends javax.swing.JFrame {
          String categorySelected = CatNameTF.getSelectedItem().toString();
           String itemName1 = txtProName1.getText();
             //Algorithm for popping from Stack
-        if ("Beverages".equals(categorySelected) || "Bread/Bakery".equals(categorySelected) || " Canned/Jarred Goods".equals(categorySelected) || "Dairy".equals(categorySelected))
+        if ("Beverages".equals(categorySelected) || "Bread/Bakery".equals(categorySelected) || "Canned/Jarred Goods".equals(categorySelected) || "Dairy".equals(categorySelected))
         {
             stackProduct.pop();
             JOptionPane.showMessageDialog(this, "Item popped from Stack");
@@ -430,6 +444,13 @@ public class AddProduct extends javax.swing.JFrame {
         proTab.setRowSorter(tr);
         tr.setRowFilter(RowFilter.regexFilter(txtSearch.getText().trim()));
     }//GEN-LAST:event_txtSearchKeyReleased
+
+    private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
+        // TODO add your handling code here:
+       new Vendors().setVisible(true);
+        this.setVisible(false);
+        
+    }//GEN-LAST:event_jLabel5MouseClicked
 
     /**
      * @param args the command line arguments
@@ -476,6 +497,7 @@ public class AddProduct extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
